@@ -8,7 +8,7 @@ yarn add scu-course-downloader
 npm install scu-course-downloader
 ```
 ```javascript
-const { saveToExcel } = require('scu-course-download')
+const { saveToExcel } = require('scu-course-downloader')
 
 ;(async() => {
   await saveToExcel()
