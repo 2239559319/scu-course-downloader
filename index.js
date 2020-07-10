@@ -7,9 +7,7 @@ const fs = require('fs')
 axios.defaults.headers.common['User-Agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
 axios.defaults.headers.common['Referer'] = 'http://zhjwjs.scu.edu.cn/teacher/personalSenate/giveLessonInfo/thisSemesterClassSchedule/indexPublic'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-/**
- * 获取学院的value
- */
+
 async function getDepartmentValue() {
   const url = 'http://zhjwjs.scu.edu.cn/teacher/personalSenate/giveLessonInfo/thisSemesterClassSchedule/indexPublic'
   const res = await axios.get(url)
@@ -27,11 +25,6 @@ async function getDepartmentValue() {
   return Array.from(values)
 }
 
-/**
- * 根据学院和学期返回数据
- * @param {string} kkxs
- * @param {string} term
- */
 async function download(kkxs, term) {
   const url = 'http://zhjwjs.scu.edu.cn/teacher/personalSenate/giveLessonInfo/thisSemesterClassSchedule/getCourseArragementPublic'
   const data = {
@@ -53,17 +46,13 @@ async function download(kkxs, term) {
   const res = await req.data
   return res.list.records
 }
-/**
- * 保存到excel
- * @param {string} term 学期号
- */
+
 async function saveToExcel(term = '2020-2021-1-1') {
   const data = []
   const header = ['开课院系', '课程号', '课程名', '课序号',
     '学分', '课程类别', '考试类型', '教师', '周次', '星期', '节次',
     '校区', '教学楼', '教室', '课容量', '学生数', '选课限制说明']
   data.push(header)
-  // eslint-diasable
   const departments = await getDepartmentValue()
   for(const { name, value } of departments) {
     const courses = await download(value, term)
