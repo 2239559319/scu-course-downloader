@@ -1,4 +1,4 @@
-const axios = require('axios')
+const axios = require('axios').default
 const cheerio = require('cheerio')
 const xlsx = require('node-xlsx')
 const qs = require('querystring')
@@ -59,18 +59,17 @@ async function download(kkxs, term) {
  */
 async function saveToExcel(term = '2020-2021-1-1') {
   const data = []
-  
   const header = ['开课院系', '课程号', '课程名', '课序号',
     '学分', '课程类别', '考试类型', '教师', '周次', '星期', '节次',
     '校区', '教学楼', '教室', '课容量', '学生数', '选课限制说明']
   data.push(header)
-
+  // eslint-diasable
   const departments = await getDepartmentValue()
   for(const { name, value } of departments) {
     const courses = await download(value, term)
     for(const course of courses) {
-      const { kkxsjc, kch, kcm, kxh, xf, kclbmc, kslxmc, skjs,
-        zcsm, skxq, skjc, cxjc, kkxqm, jxlm, jash, bkskrl, bkskyl, xkxzsm } = course
+      const { kkxsjc, kch, kcm, kxh, xf, kclbmc, kslxmc, skjs, zcsm,
+        skxq, skjc, cxjc, kkxqm, jxlm, jash, bkskrl, bkskyl, xkxzsm } = course
       data.push([kkxsjc, kch, kcm.replace(/[\r\n;]/g), kxh, xf, kclbmc, kslxmc, skjs,
         zcsm, skxq, `${skjc}-${skjc + cxjc - 1}`, kkxqm, jxlm, jash, bkskrl,
         `${bkskrl - bkskyl}`, xkxzsm.replace(/[\r\n;]/g, '')])
