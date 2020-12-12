@@ -3,7 +3,12 @@
   "version": "1.0.10",
   "main": "index.js",
   "license": "GPL-3.0",
+  "eslintIgnore": [
+    "**/*.test.js",
+    "**/*.config.js"
+  ],
   "scripts": {
+    "test": "jest --env node",
     "lint": "eslint index.js",
     "lint:fix": "eslint index.js --fix"
   },
@@ -37,10 +42,12 @@
     "index.d.ts"
   ],
   "devDependencies": {
+    "@types/jest": "^26.0.19",
     "eslint": "^7.15.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1"
+    "eslint-plugin-promise": "^4.2.1",
+    "jest": "^26.6.3"
   }
 }
