@@ -13,5 +13,5 @@ describe('department and coruse test', () => {
   test('courses', async () => {
     const courses = await download('201', '2020-2021-1-1')
     expect(courses.length).toBeGreaterThan(10)
-  })
+  }, 10000)
 })
